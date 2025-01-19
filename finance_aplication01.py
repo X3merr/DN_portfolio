@@ -42,7 +42,28 @@ class FinanceTracker:
         })
         print(f"Savings of {amount} for {purpose} added successfully!")
 
-        # Main function
+    def view_summary(self):
+        print("\n--- Finance Summary ---")
+        for category, items in self.data.items():
+            print(f"\n{category.capitalize()}:")
+            for item in items:
+                print(f"  Amount: {item['amount']}, "
+                      f"Description: {item.get('source') or item.get('category') or item.get('type') or item.get('purpose')}, "
+                      f"Date: {item['date'].strftime('%Y/%m/%d')}")
+        print("\n--- End of Summary ---")
+
+# Utility function to parse date input
+def get_date_input():
+    while True:
+        date_input = input("Enter the date (YYYY/MM/DD) or press Enter for today: ")
+        if not date_input.strip():
+            return datetime.datetime.now()
+        try:
+            return datetime.datetime.strptime(date_input, "%Y/%m/%d")
+        except ValueError:
+            print("Invalid date format. Please use YYYY/MM/DD.")
+
+# Main function
 def main():
     tracker = FinanceTracker()
     
@@ -52,6 +73,8 @@ def main():
         print("2. Add Expense")
         print("3. Add Investment")
         print("4. Add Savings")
+        print("5. View Summary")
+        print("6. Exit")
         
         choice = input("Enter your choice: ")
         
@@ -75,6 +98,14 @@ def main():
             purpose = input("Enter savings purpose: ")
             date = get_date_input()
             tracker.add_savings(amount, purpose, date)
+        elif choice == "5":
+            tracker.view_summary()
+        elif choice == "6":
+            print("Goodbye!")
+            break
+        else:
+            print("Invalid choice. Please try again.")
+
 # Start application
 if __name__ == "__main__":
     main()
