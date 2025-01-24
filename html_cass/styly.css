@@ -1,0 +1,193 @@
+
+html{
+    font-size: 16pt;
+    font-family: Arial, Helvetica, sans-serif;
+}
+body {
+      background-color: rgb(228, 237, 100);
+    }
+.kontejner {
+    max-width: 1300px;
+    min-width: 700px;
+    background-color: rgb(213, 245, 213);
+    margin:auto;
+    padding: 20px;
+    }
+    h1 {
+        font-size: 2rem;
+      }
+    h2 {
+        font-size: 1.5rem;
+      }
+    h3 {
+        font-size: 1.3rem;
+      }
+    p {
+        font-size: 1rem;
+        text-align: justify;
+      }
+
+        /* Nastavení záhlaví*/
+  header {
+    border-style: solid none;
+    border-top: 10px solid rgb(159,132, 75);
+    border-bottom: 10px solid rgb(159,132, 75);
+    padding-left:5%;
+    padding-right:5%;
+    background-color: rgb(171, 40, 88); /* Koloruje průhledný podkladový obrázek    */
+    width: 90%;     
+    height: 200px;    
+    background-image: url("obr/vinice.png");
+    background-repeat: no-repeat;
+  }
+  
+  header h1 {
+    font-size: 250% ; 
+    color:  rgba(159,132, 75,1);
+    text-align: right;
+    margin-top: 75px;
+
+  }
+  
+  header img {
+     float: left;
+    height: 80%;
+    margin-top: 12px;
+
+  }
+
+  /* Navigace   */
+  nav{
+    position: sticky; /*  Připíná header nahoře v okně */
+    top: 0;            /*  Připíná header nahoře v okně */
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+    align-content: space-around;
+    padding: 10px;
+    background-color: rgb(255,250,240);
+    font-size: 1,5rem;
+}
+
+nav a{
+  color: rgb(190,166,116);
+   text-decoration: none; 
+   text-align: center;  
+   width: 100px;
+   padding-left: 10PX ;
+   border-left: 2px dotted rgb(190,166,116);
+
+ }
+ nav a:visited {
+ color: rgb(190,166,116);
+ }
+ nav a:hover{
+ color: rgb(195,0,75);}
+
+ /*  Oddělení článků čarou   */
+ article{
+  border-top: 3px solid rgb(159,132, 75);
+  margin-top:20px;
+}
+
+     /* SEKCE  */
+     /* Nastavení odkazů v sekci*/
+     section {
+        width:90%;
+        padding-left: 5%;
+        padding-right: 5%;
+     }
+    section a{
+     color: rgb(159,132, 75);
+      text-decoration: none;   
+    }
+    section a:visited {
+    color: rgb(159,132, 75);
+    }
+    section a:hover{
+    color: rgb(195,0,75);
+    }
+    /* Nastavení tabulek v sekci*/ 
+
+    section table  { 
+        border: 6px ridge rgb(159,132, 75);
+   /*   background-color: rgb(204, 255, 255);     */
+       width: 80%;
+       margin: auto;
+       }
+   
+   
+   section  tr { border-top-style: solid;
+       border-bottom-style: solid;
+      /* color: rgb(0, 0, 153); */
+       }
+   
+    section th {
+       font-weight: strong;
+       border-style: dotted none;
+       border-width: 2px 2px 2px 0px;
+       }
+   
+     section td { border-style: none none solid;
+       border-bottom-width: 1px;
+       }
+
+/* Selektor pro zarovnání druhého a třetího sloupce na střed */
+      td:nth-child(2), td:nth-child(3) {
+         text-align: center;}
+
+      /* Nastavení obrázků v sekci*/
+     section img{
+        width: 40%; 
+        border: 8px solid rgb(159,132, 75);
+        display: block; /* obrázek se chová jako block*/
+        margin: auto;
+      }
+
+                   /* Nastavení zápatí*/
+   footer{
+    background-color: rgb(190,166,116);
+    border-top: 10px solid rgb(159,132, 75);
+    border-bottom: 10px solid rgb(159,132, 75);
+    margin-top: 5%;
+    height: 80px;
+    width: 90%;
+    padding-left: 5%;
+    padding-right: 5%;
+    font-size:0,8rem;
+    }   
+  footer table{
+           margin: auto;
+           width:99%;
+           height: 100%;
+    }   
+   footer td {
+       width:33%;
+       }
+    footer td:nth-child(2){
+                               text-align: center;}
+    footer td:nth-child(3){
+                                text-align: right;}
+ 
+   footer a{
+           color: rgb(195,0,75);
+            text-decoration: none;   
+          }
+    footer a:hover{
+          color: rgb(195,0,75);}
+    footer img {
+        width: 0.8rem;
+    }
+
+    /*Flexibilní vzhled - užší display*/
+@media (max-width: 800px) {
+    nav {
+        flex-direction: column;
+      }
+      .karty-lide {
+        flex-direction: column;
+      }
+      form {
+        flex-direction: column;
+      }
+    }
