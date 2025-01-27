@@ -1,0 +1,61 @@
+Where: 
+SELECT name, email
+FROM customers
+WHERE city = "New York";
+
+
+Alter table:
+ALTER TABLE customers
+ADD phone_number VARCHAR(15);
+
+Delete table: 
+DROP TABLE products;
+
+insert table:
+INSERT INTO customers (customer_id, name, email, city)
+VALUES (6, 'Frank Wright', 'frank@email.com', 'Boston');
+
+left join table:
+SELECT customers.name, orders.order_date, orders.total_amount
+FROM customers
+LEFT JOIN orders
+ON customers.customer_id = orders.customer_id;
+
+double left join:
+SELECT 
+    customers.name,
+    customers.email,
+    orders.order_date,
+    orders.total_amount,
+    products.product_name,
+    products.price
+FROM customers
+JOIN orders
+    ON customers.customer_id = orders.customer_id
+JOIN products
+    ON orders.order_id = products.order_id;
+    
+    
+double left join with where, Orders greater than $100, 
+Subquery for average product price, Sort by orders.order_date
+
+SELECT 
+    customers.name,
+    customers.city,
+    orders.order_date,
+    orders.total_amount,
+    products.product_name,
+    products.price
+FROM customers
+JOIN orders
+    ON customers.customer_id = orders.customer_id
+JOIN products
+    ON orders.order_id = products.order_id
+WHERE 
+    (customers.city LIKE 'N%' OR customers.city LIKE 'C%')
+    AND orders.total_amount > 100
+    AND products.price > (
+        SELECT AVG(price
+        FROM products
+    )
+ORDER BY orders.order_date DESC
