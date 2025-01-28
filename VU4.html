@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="cs">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Formulář</title>
+    <link rel="stylesheet" type="text/css" href="styly.css">
+    <style>
+        body {
+            background-color: lightblue;
+            font-family: Arial, sans-serif;
+        }
+
+        nav {
+            margin-bottom: 20px;
+        }
+
+        nav a {
+            text-decoration: none;
+            color: black;
+            font-size: 18px;
+            margin-right: 15px;
+        }
+
+        h1 {
+            text-align: center;
+            color: darkblue;
+        }
+
+        form {
+            max-width: 500px;
+            margin: 0 auto;
+            background-color: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        form label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: bold;
+        }
+
+        form input,
+        form select,
+        form textarea {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 15px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        form textarea {
+            resize: none;
+        }
+
+        form input[type="submit"],
+        form input[type="reset"] {
+            width: 48%;
+            background-color: darkblue;
+            color: white;
+            border: none;
+            cursor: pointer;
+            font-weight: bold;
+        }
+
+        form input[type="reset"] {
+            background-color: red;
+        }
+
+        form input[type="submit"]:hover,
+        form input[type="reset"]:hover {
+            opacity: 0.9;
+        }
+
+        video {
+            display: block;
+            margin: 20px auto;
+            border-radius: 10px;
+        }
+    </style>
+</head>
+
+<body>
+    <nav>
+        <a href="VU1.html">Blansko</a>
+        <a href="VU2.html">Brno</a>
+        <a href="VU3.html">Obrázky a Tabulky</a>
+        <a href="VU4.html">Formulář</a>
+    </nav>
+
+    <h1>Formulář</h1>
+
+    <form method="post" action="obsluha.php">
+        <label for="jmeno">Jméno:</label>
+        <input type="text" id="jmeno" size="60" maxlength="5" name="jmeno">
+
+        <label for="prijmeni">Přijmení:</label>
+        <input type="text" id="prijmeni" placeholder="Zadejte přijmení" required name="prijmeni">
+
+        <label for="heslo">Heslo:</label>
+        <input type="password" id="heslo" name="heslo">
+
+        <label for="barva">Oblíbená barva:</label>
+        <input type="color" id="barva" name="barva">
+
+        <label for="email">Email:</label>
+        <input type="email" id="email" name="email">
+
+        <label for="datum">Datum:</label>
+        <input type="date" id="datum" name="datum">
+
+        <label for="vek">Věk:</label>
+        <input type="number" id="vek" name="vek">
+
+        <label for="zajmy">Zájmy:</label>
+        <select id="zajmy" name="zajmy">
+            <option>Hou</option>
+            <option>Buk</option>
+            <option>Duk</option>
+            <option>Cuk</option>
+            <option>Cink</option>
+            <option>Link</option>
+        </select>
+
+        <label for="poznamka">Poznámka:</label>
+        <textarea id="poznamka" cols="20" rows="5" name="poznamka">Sdělte nám svůj názor</textarea>
+
+        <div style="display: flex; justify-content: space-between;">
+            <input type="reset" value="Smaž formulář">
+            <input type="submit" value="Submit">
+        </div>
+    </form>
+
+
+</body>
+
+</html>
+
