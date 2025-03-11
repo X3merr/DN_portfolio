@@ -1,4 +1,5 @@
 import datetime
+from collections import defaultdict
 
 # Finance Tracker Application
 class FinanceTracker:
@@ -6,7 +7,6 @@ class FinanceTracker:
         self.data = {
             "income": [],
             "expenses": [],
-            "investments": [],
             "savings": []
         }
 
@@ -26,14 +26,6 @@ class FinanceTracker:
         })
         print(f"Expense of {amount} for {category} added successfully!")
 
-    def add_investment(self, amount, investment_type, date):
-        self.data["investments"].append({
-            "amount": amount,
-            "type": investment_type,
-            "date": date
-        })
-        print(f"Investment of {amount} in {investment_type} added successfully!")
-
     def add_savings(self, amount, purpose, date):
         self.data["savings"].append({
             "amount": amount,
@@ -42,38 +34,75 @@ class FinanceTracker:
         })
         print(f"Savings of {amount} for {purpose} added successfully!")
 
-    def view_summary(self):
-        print("\n--- Finance Summary ---")
-        for category, items in self.data.items():
-            print(f"\n{category.capitalize()}:")
-            for item in items:
-                print(f"  Amount: {item['amount']}, "
-                      f"Description: {item.get('source') or item.get('category') or item.get('type') or item.get('purpose')}, "
-                      f"Date: {item['date'].strftime('%Y/%m/%d')}")
-        print("\n--- End of Summary ---")
+    def spend_savings(self, amount, purpose, date):
+        """ Deduct a specific amount from savings while keeping track of purpose. """
+        total_savings = sum(item["amount"] for item in self.data["savings"])
+        
+        if total_savings < amount:
+            print("Not enough savings available to spend this amount.")
+            return
+        
+        remaining_amount = amount
+        updated_savings = []
+        
+        for item in self.data["savings"]:
+            if remaining_amount > 0:
+                if item["amount"] <= remaining_amount:
+                    remaining_amount -= item["amount"]
+                else:
+                    item["amount"] -= remaining_amount
+                    updated_savings.append(item)
+                    remaining_amount = 0
+            else:
+                updated_savings.append(item)
+        
+        self.data["savings"] = updated_savings
+        print(f"Savings spent: {amount} for {purpose} on {date.strftime('%d-%m-%Y')}.")
+
+    def view_monthly_summary(self):
+        monthly_data = defaultdict(lambda: {"income": 0, "expenses": 0, "savings": 0})
+        total_savings = sum(item["amount"] for item in self.data["savings"])
+        
+        for entry in self.data["income"]:
+            key = (entry["date"].year, entry["date"].month)
+            monthly_data[key]["income"] += entry["amount"]
+        
+        for entry in self.data["expenses"]:
+            key = (entry["date"].year, entry["date"].month)
+            monthly_data[key]["expenses"] += entry["amount"]
+        
+        for entry in self.data["savings"]:
+            key = (entry["date"].year, entry["date"].month)
+            monthly_data[key]["savings"] += entry["amount"]
+        
+        print("\n--- Monthly Summary ---")
+        for (year, month), values in sorted(monthly_data.items()):
+            print(f"{month:02d}-{year} - Income: {values['income']}, Expenses: {values['expenses']}, Savings: {values['savings']}, Balance: {values['income'] - values['expenses']}")
+        print(f"Total Savings (All time): {total_savings}")
+        print("\n--- End of Monthly Summary ---")
 
 # Utility function to parse date input
 def get_date_input():
     while True:
-        date_input = input("Enter the date (YYYY/MM/DD) or press Enter for today: ")
+        date_input = input("Enter the date (DD-MM-YYYY) or press Enter for today: ")
         if not date_input.strip():
             return datetime.datetime.now()
         try:
-            return datetime.datetime.strptime(date_input, "%Y/%m/%d")
+            return datetime.datetime.strptime(date_input, "%d-%m-%Y")
         except ValueError:
-            print("Invalid date format. Please use YYYY/MM/DD.")
+            print("Invalid date format. Please use DD-MM-YYYY.")
 
 # Main function
 def main():
     tracker = FinanceTracker()
     
     while True:
-        print("\Finance Tracker Menu:")
+        print("\nFinance Tracker Menu:")
         print("1. Add Income")
         print("2. Add Expense")
-        print("3. Add Investment")
-        print("4. Add Savings")
-        print("5. View Summary")
+        print("3. Add Savings")
+        print("4. Spend Savings")
+        print("5. View Monthly Summary")
         print("6. Exit")
         
         choice = input("Enter your choice: ")
@@ -89,17 +118,17 @@ def main():
             date = get_date_input()
             tracker.add_expense(amount, category, date)
         elif choice == "3":
-            amount = float(input("Enter investment amount: "))
-            investment_type = input("Enter investment type: ")
-            date = get_date_input()
-            tracker.add_investment(amount, investment_type, date)
-        elif choice == "4":
             amount = float(input("Enter savings amount: "))
             purpose = input("Enter savings purpose: ")
             date = get_date_input()
             tracker.add_savings(amount, purpose, date)
+        elif choice == "4":
+            amount = float(input("Enter amount to spend from savings: "))
+            purpose = input("Enter spending purpose: ")
+            date = get_date_input()
+            tracker.spend_savings(amount, purpose, date)
         elif choice == "5":
-            tracker.view_summary()
+            tracker.view_monthly_summary()
         elif choice == "6":
             print("Goodbye!")
             break
