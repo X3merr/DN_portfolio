@@ -1,16 +1,31 @@
 Finance Tracker
 
-Finance Tracker is a simple Python application for managing personal finances. Users can track their income, expenses, investments, and savings while keeping an overview of their finance.
+Finance Tracker is a simple Python application for managing personal finances. Users can track their income, expenses, and savings while keeping an overview of their finance.
 
-Features
+Features 
 
-Track Income – Log different sources of income with date tracking.
+Track Transactions: Add income, expenses, and savings with a date.
 
-Track Expenses – Record expenses by category.
+utomatic Savings Adjustments:
+If the balance at the end of the month is positive, it is automatically transferred to savings.
 
-Manage Investments – Store investment records with types and amounts.
+If the balance is negative, and sufficient savings exist, it is covered from savings.
 
-Monitor Savings – Track savings and their purpose.
+Monthly Summary: View income, expenses, balance, and total savings at any time.
 
-Financial Summary – View an overview of all financial records.
+CSV Logging:
+
+overview.csv → Stores categorized financial records.
+
+inputs.csv → Stores all raw user inputs.
+
+Simple Console-Based Interface for easy navigation.
+
+
+Menu Options:
+1. Add Income 
+2. Add Expense 
+3. Add Savings 
+4. View Monthly Summary 
+5. Exit 
 
